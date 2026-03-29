@@ -86,6 +86,9 @@ public class CodeGenerator
         if (card.Tags.Contains("Innate")) sb.AppendLine("    public override bool Innate => true;");
         if (card.Tags.Contains("Retain")) sb.AppendLine("    public override bool Retain => true;");
         if (card.Tags.Contains("Eternal")) sb.AppendLine("    public override bool Eternal => true;");
+        if (card.Tags.Contains("Sly")) sb.AppendLine("    public override bool Sly => true; // 奇巧：弃掉时免费打出");
+        if (card.Tags.Contains("Replay")) sb.AppendLine("    public override bool Replay => true; // 重放：额外打出一次");
+        if (card.Tags.Contains("Unplayable")) sb.AppendLine("    public override bool Unplayable => true;");
         if (card.Tags.Count > 0) sb.AppendLine();
     }
 
@@ -134,6 +137,69 @@ public class CodeGenerator
                     break;
                 case "heal":
                     sb.AppendLine($"        CreatureCmd.Heal(target, {val}, true);");
+                    break;
+                case "energyGain":
+                    sb.AppendLine($"        source.Player.GainEnergy({val});");
+                    break;
+                case "energyNextTurn":
+                    sb.AppendLine($"        PowerCmd.Apply<EnergyNextTurnPower>(source, {val}, source, null, false);");
+                    break;
+                case "loseHp":
+                    sb.AppendLine($"        source.LoseHpInternal({val}, default);");
+                    break;
+                case "maxHp":
+                    sb.AppendLine($"        target.IncreaseMaxHp({val}, true);");
+                    break;
+                case "vigor":
+                    sb.AppendLine($"        PowerCmd.Apply<VigorPower>(target, {val}, source, null, false);");
+                    break;
+                case "plating":
+                    sb.AppendLine($"        PowerCmd.Apply<PlatingPower>(target, {val}, source, null, false);");
+                    break;
+                case "intangible":
+                    sb.AppendLine($"        PowerCmd.Apply<IntangiblePower>(target, {val}, source, null, false);");
+                    break;
+                case "buffer":
+                    sb.AppendLine($"        PowerCmd.Apply<BufferPower>(target, {val}, source, null, false);");
+                    break;
+                case "ritual":
+                    sb.AppendLine($"        PowerCmd.Apply<RitualPower>(target, {val}, source, null, false);");
+                    break;
+                case "metallicize":
+                    sb.AppendLine($"        PowerCmd.Apply<MetallicizePower>(target, {val}, source, null, false);");
+                    break;
+                case "focus":
+                    sb.AppendLine($"        PowerCmd.Apply<FocusPower>(target, {val}, source, null, false);");
+                    break;
+                case "channelLightning":
+                    sb.AppendLine($"        // Channel Lightning Orb");
+                    break;
+                case "channelFrost":
+                    sb.AppendLine($"        // Channel Frost Orb");
+                    break;
+                case "channelDark":
+                    sb.AppendLine($"        // Channel Dark Orb");
+                    break;
+                case "channelPlasma":
+                    sb.AppendLine($"        // Channel Plasma Orb");
+                    break;
+                case "channelGlass":
+                    sb.AppendLine($"        // Channel Glass Orb");
+                    break;
+                case "evoke":
+                    sb.AppendLine($"        // Evoke rightmost Orb");
+                    break;
+                case "replay":
+                    sb.AppendLine($"        // Replay: card is played additional {val} time(s)");
+                    break;
+                case "doom":
+                    sb.AppendLine($"        PowerCmd.Apply<DoomPower>(target, {val}, source, null, false);");
+                    break;
+                case "summon":
+                    sb.AppendLine($"        // Summon Osty with {val} HP");
+                    break;
+                case "forge":
+                    sb.AppendLine($"        // Forge {val} - Regent mechanic");
                     break;
                 default:
                     sb.AppendLine($"        // TODO: implement {effect.Keyword} effect ({val})");

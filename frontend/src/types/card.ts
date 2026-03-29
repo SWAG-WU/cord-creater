@@ -2,8 +2,8 @@ export type CardRarity = 'Common' | 'Uncommon' | 'Rare';
 export type CardType = 'Attack' | 'Skill' | 'Power';
 export type Character = 'Ironclad' | 'Silent' | 'Defect' | 'Regent' | 'Necrobinder';
 export type CardTarget = 'Enemy' | 'AllEnemies' | 'Self' | 'None';
-export type CardTag = 'Exhaust' | 'Ethereal' | 'Innate' | 'Retain' | 'Eternal';
-export type NumericField = 'damage' | 'block' | 'draw' | 'hits' | 'cost' | 'heal' | 'maxHp';
+export type CardTag = 'Exhaust' | 'Ethereal' | 'Innate' | 'Retain' | 'Eternal' | 'Sly' | 'Replay' | 'Unplayable';
+export type NumericField = 'damage' | 'block' | 'draw' | 'hits' | 'cost' | 'heal' | 'maxHp' | 'energy' | 'loseHp' | 'vigor' | 'plating' | 'intangible' | 'metallicize' | 'buffer' | 'strength' | 'dexterity' | 'vulnerable' | 'weak' | 'frail' | 'poison' | 'artifact' | 'regen' | 'thorns' | 'doom' | 'forge' | 'summon' | 'focus' | 'ritual';
 
 export interface CardEffect {
   keyword: string;
